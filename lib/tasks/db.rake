@@ -11,7 +11,7 @@ namespace :db do
       doc = REXML::Document.new(response.body)
       valute = doc.root.elements.to_a
     rescue Exception => e
-      abort "Не удалось установить соединение! #{e}"
+      abort "Failed to establish a connection! #{e}"
     end
 
     valute.each do |valute_id|
@@ -22,8 +22,10 @@ namespace :db do
       currency = Currency.find_by(name: nominal + name)
       if currency
         currency.update!(rate: value)
+        puts "Updated #{currency.name}"
       else
-        Currency.create!(rate: value, name: nominal + name)
+        currency = Currency.create!(rate: value, name: nominal + name)
+        puts "Created new #{currency.name}"
       end
     end
   end
