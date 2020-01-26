@@ -1,5 +1,4 @@
 class ApiKey < ApplicationRecord
-  validates :access_token, presence: true
   before_create :generate_access_token
 
   private
