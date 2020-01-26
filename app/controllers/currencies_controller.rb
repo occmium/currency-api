@@ -1,6 +1,6 @@
 class CurrenciesController < ApplicationController
   def index
-    currencies = Currency.all
+    currencies = Currency.paginate(page: params[:page], per_page: 10)
     render json: currencies
   end
 
